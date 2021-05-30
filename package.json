@@ -1,18 +1,30 @@
 {
   "name": "iupp-node-api",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "The node API for Gladtask project",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server",
+    "start": "node -r esm ./server.js",
+    "dev": "nodemon -r esm server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "engines": {
+    "node": "10.x"
+  },
+  "author": "Rodrigo Bastos",
   "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "eslint-config-google": "^0.13.0",
+    "nodemon": "^1.19.1"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
-    "config": "^3.2.3",
-    "express": "^4.17.1"
+    "cors": "^2.8.5",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "glob": "^7.1.4",
+    "http-status-codes": "^1.3.2",
+    "node-pre-gyp": "^0.13.0"
   }
 }

@@ -1,6 +1,7 @@
-const app = require('./config/express')();
-const port = app.get('port');
+const app = require('./app');
+const http = require('http');
 
-app.listen(port, () => {
-    console.log(`Servidor rodando na porta ${port}`)
-});
+port = process.env.PORT || 3000;
+
+const server = http.createServer(app);
+server.listen(port);
