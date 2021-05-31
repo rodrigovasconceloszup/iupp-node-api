@@ -1,5 +1,5 @@
-import cartData from '../data/cart.json';
-import * as itemCartData from '../data/itemcart.json';
+import cartData from '../data/cart/cart.json';
+import itemCartData from '../data/cart/itemcart.json';
 
 class CartRepository {
     cartList = [];

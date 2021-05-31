@@ -1,6 +1,6 @@
 import allProducts from '../products/all_products';
-import morePointsProducts from './more_points_products';
-import offerProduct from './offer_product';
+import morePointsProducts from '../products/more_points_products';
+import offerProduct from '../products/offer_product';
 
 export default showcase =
 {

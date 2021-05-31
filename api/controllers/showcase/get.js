@@ -1,5 +1,5 @@
 import { sendDefaultHttpSuccessResponse } from '../../utils/httpUtils';
-import * as showcaseData from '../../data/showcase.json';
+import showcaseData from '../../data/showcase/showcase';
 
 export const getShowcaseByUserId = async (req, res) => {
     const userId = req.params['userId'];
