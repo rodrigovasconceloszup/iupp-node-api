@@ -18,5 +18,14 @@ services:
     <<: *default
     command: "yarn dev"
     container_name: iupp_node_api
+    networks:
+      frontend:
+          ipv4_address: 172.19.0.2
     ports:
       - 3333:3333
+
+networks:
+  frontend:
+    ipam:
+      config:
+        - subnet: 172.19.0.0/24
