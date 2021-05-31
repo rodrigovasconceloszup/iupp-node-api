@@ -1,4 +1,4 @@
-export default brandNewProducts = [
+const brandNewProducts = [
     {
         "id": 1,
         "imageUrls": [
@@ -80,9 +80,11 @@ export default brandNewProducts = [
         "installments": [
             {
                 "number": 1,
-                "value": 1899
+                "value": 1.899
             }
         ],
         "variations": []
-    },
+    }
 ];
+
+export default brandNewProducts;

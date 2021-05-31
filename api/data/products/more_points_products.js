@@ -1,4 +1,4 @@
-export default morePointsProducts = [
+const morePointsProducts = [
     {
         "id": 4,
         "imageUrls": [
@@ -45,3 +45,5 @@ export default morePointsProducts = [
         "variations": []
     }
 ];
+
+export default morePointsProducts;

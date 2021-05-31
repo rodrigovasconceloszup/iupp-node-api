@@ -2,8 +2,7 @@ import allProducts from '../products/all_products';
 import morePointsProducts from '../products/more_points_products';
 import offerProduct from '../products/offer_product';
 
-export default showcase =
-{
+const showcase = {
     "banners": [
         {
             "id": 1,
@@ -22,14 +21,14 @@ export default showcase =
         {
             "category": "Brand New",
             "products": [
-                ...allProducts,
-            ],
+                ...allProducts
+            ]
         },
         {
             "category": "More Points",
             "products": [
-                ...morePointsProducts,
-            ],
+                ...morePointsProducts
+            ]
         }
     ],
     "offers": [
@@ -40,3 +39,5 @@ export default showcase =
         }
     ]
 }
+
+export default showcase;

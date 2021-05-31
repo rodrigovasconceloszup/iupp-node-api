@@ -1,4 +1,6 @@
-export default offerProduct = {
+
+
+const offerProduct = {
     "id": 6,
     "imageUrls": [
         "https://i.imgur.com/GnW62sE.png",
@@ -19,3 +21,5 @@ export default offerProduct = {
     ],
     "variations": []
 };
+
+export default offerProduct;
