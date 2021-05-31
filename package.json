@@ -2,14 +2,10 @@
   "name": "iupp-node-api",
   "version": "0.0.1",
   "description": "The node API for Gladtask project",
-  "main": "index.js",
   "scripts": {
     "start": "node -r esm ./server.js",
     "dev": "nodemon -r esm server",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "engines": {
-    "node": "10.x"
   },
   "author": "Rodrigo Bastos",
   "license": "ISC",
@@ -19,7 +15,6 @@
     "nodemon": "^1.19.1"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "esm": "^3.2.25",
     "express": "^4.17.1",
