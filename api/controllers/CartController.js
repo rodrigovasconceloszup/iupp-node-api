@@ -11,7 +11,7 @@ export const getCart = async (req, res) => {
 
 export const addItem = async (req, res) => {
     const cartId = req.params['cartId'];
-    const cartId = req.params['itemId'];
+    const itemId = req.params['itemId'];
     const cart = cartRepository.addItemCart(cartId, itemId);
     sendDefaultHttpSuccessResponse(res, cart);
 };

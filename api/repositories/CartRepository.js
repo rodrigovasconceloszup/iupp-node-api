@@ -1,16 +1,22 @@
-import * as cartData from '../data/cart.json';
+import cartData from '../data/cart.json';
 import * as itemCartData from '../data/itemcart.json';
 
 class CartRepository {
     cartList = [];
 
     create() {
-        this.cartList.push(cartData)
-        return cartData;
+        const id = this.cartList.length + 1;
+        const cartObject = Object.assign({
+            ...cartData,
+            id
+        });
+        this.cartList.push(cartObject);
+        return cartObject;
     }
 
     get(cartId) {
-        return this.cartList.find(cart => cart.id === cartId);
+        const cartFromList = this.cartList.find(cart => cart.id === parseInt(cartId));
+        return cartFromList;
     }
 
     addItemCart(cartId, itemId) {
