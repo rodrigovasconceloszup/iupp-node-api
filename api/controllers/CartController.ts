@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { sendDefaultHttpSuccessResponse } from 'utils/httpUtils';
+import { sendDefaultHttpCreatedResponse, sendDefaultHttpSuccessResponse } from 'utils/httpUtils';
 
 import CartRepository from '../repositories/CartRepository';
 
@@ -20,7 +20,7 @@ export const addItem = async (req: Request, res: Response) => {
 
 export const create = async (req: Request, res: Response) => {
   const cart = cartRepository.create();
-  sendDefaultHttpSuccessResponse(res, cart);
+  sendDefaultHttpCreatedResponse(res, cart);
 };
 
 export const increment = async (req: Request, res: Response) => {
