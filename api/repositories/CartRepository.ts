@@ -34,11 +34,12 @@ class CartRepository {
   }
 
   get(cart_id: String): CartModel {
-    const cartFromList = this.cartList.find((cart) => cart.id === cart_id);
-    if (!cartFromList) {
+    if (cart_id === '0') {
       const createdCart = this.create();
       return createdCart;
     };
+    const cartFromList = this.cartList.find((cart) => cart.id === cart_id);
+    if(!cartFromList) throw new AppError("Cart Not Found");
     return cartFromList;
   }
 
@@ -77,14 +78,16 @@ class CartRepository {
 
   incrementItem({ cart_id, item_cart_id }: IRequestUpdateProduct): CartModel {
     const cart = this.get(cart_id);
-    cart.items.map(itemCart => {
-      if (itemCart.id === item_cart_id) {
-        itemCart.quantity + 1;
-        itemCart.total = itemCart.product.price * itemCart.quantity;
-        itemCart.totalPoints = itemCart.product.points * itemCart.quantity;
-      }
-      return itemCart;
+
+    const itemCartIndex = cart.items.findIndex(itemCart => itemCart.id === item_cart_id);
+    if(itemCartIndex < 0) throw new AppError("Item cart not found");
+
+    const currentItemCart = cart.items[itemCartIndex];
+    const updateItem = new ItemCartModel({
+      ...currentItemCart,
+      quantity: currentItemCart.quantity + 1,
     });
+    cart.items[itemCartIndex] = updateItem;
 
     const cartReponse = this._updateCart(cart, cart_id);
     return cartReponse;
@@ -92,18 +95,21 @@ class CartRepository {
 
   decrementItem({ cart_id, item_cart_id }: IRequestUpdateProduct): CartModel {
     const cart = this.get(cart_id);
-    cart.items.map(itemCart => {
-      if (itemCart.id === item_cart_id) {
-        itemCart.quantity - 1;
-        itemCart.total = itemCart.product.price * itemCart.quantity;
-        itemCart.totalPoints = itemCart.product.points * itemCart.quantity;
-      }
-      return itemCart;
+    const itemCartIndex = cart.items.findIndex(itemCart => itemCart.id === item_cart_id);
+    if(itemCartIndex < 0) throw new AppError("Item cart not found");
+
+    const currentItemCart = cart.items[itemCartIndex];
+    const updateItem = new ItemCartModel({
+      ...currentItemCart,
+      quantity: currentItemCart.quantity - 1,
     });
+    cart.items[itemCartIndex] = updateItem;
 
     const cartReponse = this._updateCart(cart, cart_id);
     return cartReponse;
   }
+
+
 
   addShipping({ cart_id, cep }: IRequestUpdateShipping): CartModel {
     let cart = this.get(cart_id);
