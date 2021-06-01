@@ -31,8 +31,19 @@ class CartRepository {
             quantity: 1,
             product: productFromList,
         });
-        cart.items.push(itemCart);
 
+        if(cart.items.some(product => product.id === parseInt(itemId))){
+            cart.items.map(itemCart => {
+                if(itemCart.id === parseInt(itemId)) {
+                    itemCart.quantity++;
+                    itemCart.total = itemCart.product.price * itemCart.quantity;
+                    itemCart.totalPoints = itemCart.product.points * itemCart.quantity;
+                }
+                return itemCart;
+            });
+        } else {
+            cart.items.push(itemCart);
+        }
         cart = this._updateCartTotals(cart);
         return cart;
     }
@@ -42,6 +53,8 @@ class CartRepository {
         cart.items.map(itemCart => {
             if(itemCart.id === itemId) {
                 itemCart.quantity++;
+                itemCart.total = itemCart.product.price * itemCart.quantity;
+                itemCart.totalPoints = itemCart.product.points * itemCart.quantity;
             }
             return itemCart;
         });
@@ -54,6 +67,8 @@ class CartRepository {
         cart.items.map(itemCart => {
             if(itemCart.id === itemId) {
                 itemCart.quantity--;
+                itemCart.total = itemCart.product.price * itemCart.quantity;
+                itemCart.totalPoints = itemCart.product.points * itemCart.quantity;
             }
             return itemCart;
         });
@@ -72,8 +87,8 @@ class CartRepository {
     }
 
     _updateCartTotals(cart) {
-        const totalProducts = cart.items.reduce((total, itemCart) => total + itemCart.product.price, 0);
-        const totalPoints = cart.items.reduce((total, itemCart) => total + itemCart.product.points, 0);
+        const totalProducts = cart.items.reduce((total, itemCart) => total + itemCart.total, 0);
+        const totalPoints = cart.items.reduce((total, itemCart) => total + itemCart.totalPoints, 0);
         
         cart.total = totalProducts;
         cart.subtotal = totalProducts;

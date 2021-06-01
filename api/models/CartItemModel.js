@@ -6,6 +6,8 @@ class CartItemModel {
     }) {
         this.id = id;
         this.quantity = quantity;
+        this.total = product.price * quantity;
+        this.totalPoints = product.points * quantity
         this.product = product;
     }
 }

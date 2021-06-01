@@ -17,7 +17,7 @@ export const getCart = async (req, res) => {
 export const addItem = async (req, res) => {
     try {
         const cartId = req.params['cartId'];
-        const itemId = req.body['itemId'];
+        const {itemId} = req.body;
         const cart = cartRepository.addItemCart(cartId, itemId);
         sendDefaultHttpSuccessResponse(res, cart);
     } catch (e) {
@@ -34,7 +34,7 @@ export const create = async (req, res) => {
 export const increment = async (req, res) => {
     try {
         const cartId = req.params['cartId'];
-        const itemId = req.params['itemId'];
+        const {itemId} = req.body;
         const cart = cartRepository.incrementItem(cartId, itemId);
         sendDefaultHttpSuccessResponse(res, cart);
     } catch (e) {
@@ -45,7 +45,7 @@ export const increment = async (req, res) => {
 export const decrement = async (req, res) => {
     try {
         const cartId = req.params['cartId'];
-        const itemId = req.params['itemId'];
+        const {itemId} = req.body;
         const cart = cartRepository.decrementItem(cartId, itemId);
         sendDefaultHttpSuccessResponse(res, cart);
 
@@ -57,7 +57,7 @@ export const decrement = async (req, res) => {
 export const addShipping = async (req, res) => {
     try {
         const cartId = req.params['cartId'];
-        const cep = req.params['cep'];
+        const {cep} = req.body;
         const cart = cartRepository.addShipping(cartId, cep);
         sendDefaultHttpSuccessResponse(res, cart);
 
