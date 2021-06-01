@@ -13,8 +13,8 @@ export const getCart = async (req: Request, res: Response) => {
 
 export const addItem = async (req: Request, res: Response) => {
   const cartId = req.params['cartId'];
-  const { itemId } = req.body;
-  const cart = cartRepository.addItemCart({ cart_id: cartId, product_id: itemId });
+  const { product_id } = req.body;
+  const cart = cartRepository.addItemCart({ cart_id: cartId, product_id: product_id });
   sendDefaultHttpSuccessResponse(res, cart);
 };
 
@@ -25,16 +25,15 @@ export const create = async (req: Request, res: Response) => {
 
 export const increment = async (req: Request, res: Response) => {
   const cartId = req.params['cartId'];
-  const { itemId } = req.body;
-  const cart = cartRepository.incrementItem({ cart_id: cartId, product_id: itemId });
+  const { item_cart_id } = req.body;
+  const cart = cartRepository.incrementItem({ cart_id: cartId, item_cart_id: item_cart_id });
   sendDefaultHttpSuccessResponse(res, cart);
-
 };
 
 export const decrement = async (req: Request, res: Response) => {
   const cartId = req.params['cartId'];
-  const { itemId } = req.body;
-  const cart = cartRepository.decrementItem({ cart_id: cartId, product_id: itemId });
+  const { item_cart_id } = req.body;
+  const cart = cartRepository.decrementItem({ cart_id: cartId, item_cart_id: item_cart_id });
   sendDefaultHttpSuccessResponse(res, cart);
 };
 
