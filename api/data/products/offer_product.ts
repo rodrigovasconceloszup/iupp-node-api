@@ -1,7 +1,8 @@
-
+import ProductModel from 'models/ProductModel';
+import { v4 as uuid } from 'uuid';
 
 const offerProduct = {
-    "id": 6,
+    "id": uuid(),
     "imageUrls": [
         "https://i.imgur.com/GnW62sE.png",
         "https://i.imgur.com/GnW62sE.png"
@@ -20,6 +21,6 @@ const offerProduct = {
         }
     ],
     "variations": []
-};
+} as ProductModel;
 
 export default offerProduct;

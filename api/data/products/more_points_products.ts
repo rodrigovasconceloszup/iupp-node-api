@@ -1,6 +1,9 @@
+import ProductModel from 'models/ProductModel';
+import { v4 as uuid } from 'uuid';
+
 const morePointsProducts = [
     {
-        "id": 4,
+        "id": uuid(),
         "imageUrls": [
             "https://i.imgur.com/9psrGJK.png",
             "https://i.imgur.com/9psrGJK.png",
@@ -23,7 +26,7 @@ const morePointsProducts = [
         "variations": []
     },
     {
-        "id": 5,
+        "id": uuid(),
         "imageUrls": [
             "https://i.imgur.com/yjR3b2T.png",
             "https://i.imgur.com/yjR3b2T.png",
@@ -44,6 +47,6 @@ const morePointsProducts = [
         ],
         "variations": []
     }
-];
+] as Array<ProductModel>;
 
 export default morePointsProducts;
