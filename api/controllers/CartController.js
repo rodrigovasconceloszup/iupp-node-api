@@ -17,7 +17,6 @@ export const getCart = async (req, res) => {
 export const addItem = async (req, res) => {
     try {
         const cartId = req.params['cartId'];
-        console.log('body', req.body);
         const itemId = req.body['itemId'];
         const cart = cartRepository.addItemCart(cartId, itemId);
         sendDefaultHttpSuccessResponse(res, cart);
