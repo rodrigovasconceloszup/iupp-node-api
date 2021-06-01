@@ -1,5 +1,6 @@
 import cartData from '../data/cart/cart.json';
-import itemCartData from '../data/cart/itemcart.json';
+import allProducts from '../data/products/all_products';
+import CartItemModel from '../models/CartItemModel';
 
 class CartRepository {
     cartList = [];
@@ -16,14 +17,23 @@ class CartRepository {
 
     get(cartId) {
         const cartFromList = this.cartList.find(cart => cart.id === parseInt(cartId));
+        if(!cartFromList) throw "Cart notfound";
         return cartFromList;
     }
 
     addItemCart(cartId, itemId) {
         let cart = this.get(cartId);
-        let item = itemCartData;
-        item.id++;
-        cart.items.push(item);
+        const productFromList = allProducts.find(product => product.id === parseInt(itemId));
+        if(!productFromList) throw "Product notfound";
+        
+        const itemCart = new CartItemModel({
+            id: cart.items.length + 1,
+            quantity: 1,
+            product: productFromList,
+        });
+        cart.items.push(itemCart);
+
+        cart = this._updateCartTotals(cart);
         return cart;
     }
 
@@ -35,6 +45,7 @@ class CartRepository {
             }
             return itemCart;
         });
+        cart = this._updateCartTotals(cart);
         return cart;
     }
 
@@ -46,6 +57,7 @@ class CartRepository {
             }
             return itemCart;
         });
+        cart = this._updateCartTotals(cart);
         return cart;
     }
 
@@ -56,6 +68,17 @@ class CartRepository {
             "expectedDeliveryDays": 5,
             "value": Math.random() < 0.5 ? 0 : 9.90,
         };
+        return cart;
+    }
+
+    _updateCartTotals(cart) {
+        const totalProducts = cart.items.reduce((total, itemCart) => total + itemCart.product.price, 0);
+        const totalPoints = cart.items.reduce((total, itemCart) => total + itemCart.product.points, 0);
+        
+        cart.total = totalProducts;
+        cart.subtotal = totalProducts;
+        cart.totalPoints = totalPoints;
+
         return cart;
     }
 }
