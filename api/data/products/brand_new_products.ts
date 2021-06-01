@@ -30,12 +30,10 @@ const brandNewProducts = [
       }
     ],
     "imageUrls": [
-      "https://i.imgur.com/AQAuknv.png",
-      "https://i.imgur.com/AQAuknv.png",
-      "https://i.imgur.com/AQAuknv.png",
-      "https://i.imgur.com/AQAuknv.png",
-      "https://i.imgur.com/AQAuknv.png",
-      "https://i.imgur.com/AQAuknv.png"
+      "https://www.pontofrio-imagens.com.br/Control/ArquivoExibir.aspx?IdArquivo=1672057574",
+"https://www.pontofrio-imagens.com.br/Control/ArquivoExibir.aspx?IdArquivo=1672057752",
+"https://www.pontofrio-imagens.com.br/Control/ArquivoExibir.aspx?IdArquivo=1672057955",
+"https://www.pontofrio-imagens.com.br/Control/ArquivoExibir.aspx?IdArquivo=1672058143"
     ]
   } ,
   {
