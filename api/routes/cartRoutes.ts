@@ -4,13 +4,13 @@ import * as CartController from '../controllers/CartController';
 
 const cartRoutes = express.Router();
 
-cartRoutes.get('/:cartId', CartController.getCart);
+cartRoutes.get('/:cart_id', CartController.getCart);
 
 cartRoutes.post('/', CartController.create);
-cartRoutes.post('/addItem/:cartId', CartController.addItem);
-cartRoutes.post('/increase/:cartId', CartController.increment);
-cartRoutes.post('/decrease/:cartId', CartController.decrement);
-cartRoutes.post('/add-shipping/:cartId', CartController.addShipping);
+cartRoutes.post('/addItem/:cart_id', CartController.addItem);
+cartRoutes.post('/increase/:cart_id', CartController.increment);
+cartRoutes.post('/decrease/:cart_id', CartController.decrement);
+cartRoutes.post('/add-shipping/:cart_id', CartController.addShipping);
 
 
 

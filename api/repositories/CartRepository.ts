@@ -8,6 +8,7 @@ import allProducts from 'data/products/all_products';
 interface IRequestAddProduct {
   cart_id: String;
   product_id: String;
+  quantity: number;
 }
 
 interface IRequestUpdateProduct {
@@ -43,7 +44,7 @@ class CartRepository {
     return cartFromList;
   }
 
-  addItemCart({ cart_id, product_id }: IRequestAddProduct): CartModel {
+  addItemCart({ cart_id, product_id, quantity }: IRequestAddProduct): CartModel {
     const cart = this.get(cart_id);
 
     const productFromList = allProducts.find((product) => product.id === product_id);
@@ -56,7 +57,7 @@ class CartRepository {
     if (itemCartIndex < 0) {
       const itemCart = new ItemCartModel({
         id: uuid(),
-        quantity: 1,
+        quantity,
         product: productFromList,
       });
 
@@ -67,7 +68,7 @@ class CartRepository {
 
       const updatedItemCart = new ItemCartModel({
         ...currentItemCart,
-        quantity: currentItemCart.quantity + 1,
+        quantity: currentItemCart.quantity + quantity,
       })
       cart.items[itemCartIndex] = updatedItemCart;
     }
