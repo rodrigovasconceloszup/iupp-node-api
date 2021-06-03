@@ -101,7 +101,7 @@ class CartRepository {
 
     const currentItemCart = cart.items[itemCartIndex];
     const newQuantity = currentItemCart.quantity - 1;
-    if(newQuantity - 1 <= 0) {
+    if(newQuantity === 0) {
       cart.items.splice(itemCartIndex, 1);
     } else {
       const updateItem = new ItemCartModel({
