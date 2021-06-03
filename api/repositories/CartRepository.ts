@@ -100,12 +100,16 @@ class CartRepository {
     if(itemCartIndex < 0) throw new AppError("Item cart not found");
 
     const currentItemCart = cart.items[itemCartIndex];
-    const updateItem = new ItemCartModel({
-      ...currentItemCart,
-      quantity: currentItemCart.quantity - 1,
-    });
-    cart.items[itemCartIndex] = updateItem;
-
+    const newQuantity = currentItemCart.quantity - 1;
+    if(newQuantity - 1 <= 0) {
+      cart.items.splice(itemCartIndex, 1);
+    } else {
+      const updateItem = new ItemCartModel({
+        ...currentItemCart,
+        quantity: newQuantity,
+      });
+      cart.items[itemCartIndex] = updateItem;
+    }
     const cartReponse = this._updateCart(cart, cart_id);
     return cartReponse;
   }
