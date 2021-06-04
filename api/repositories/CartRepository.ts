@@ -1,9 +1,9 @@
 import { v4 as uuid } from 'uuid';
 import ItemCartModel from 'models/ItemCartModel';
 import CartModel from 'models/CartModel';
-import cartData from '../data/cart/cart.json';
 import AppError from 'utils/AppError';
 import allProducts from 'data/products/all_products';
+import ShippingModel from 'models/ShippingModel';
 
 interface IRequestAddProduct {
   cart_id: String;
@@ -25,11 +25,13 @@ class CartRepository {
   cartList: Array<CartModel> = [];
 
   create(): CartModel {
-    const cartObject = Object.assign({
-      ...cartData,
-      id: uuid()
-    }) as CartModel;
-
+    const cartObject = new CartModel({
+      id: uuid(),
+      total: 0,
+      subtotal: 0,
+      totalPoints: 0,
+      items: [] as Array<ItemCartModel>
+    });
     this.cartList.push(cartObject);
     return cartObject;
   }
@@ -40,7 +42,7 @@ class CartRepository {
       return createdCart;
     };
     const cartFromList = this.cartList.find((cart) => cart.id === cart_id);
-    if(!cartFromList) throw new AppError("Cart Not Found");
+    if (!cartFromList) throw new AppError("Cart Not Found");
     return cartFromList;
   }
 
@@ -81,7 +83,7 @@ class CartRepository {
     const cart = this.get(cart_id);
 
     const itemCartIndex = cart.items.findIndex(itemCart => itemCart.id === item_cart_id);
-    if(itemCartIndex < 0) throw new AppError("Item cart not found");
+    if (itemCartIndex < 0) throw new AppError("Item cart not found");
 
     const currentItemCart = cart.items[itemCartIndex];
     const updateItem = new ItemCartModel({
@@ -97,11 +99,11 @@ class CartRepository {
   decrementItem({ cart_id, item_cart_id }: IRequestUpdateProduct): CartModel {
     const cart = this.get(cart_id);
     const itemCartIndex = cart.items.findIndex(itemCart => itemCart.id === item_cart_id);
-    if(itemCartIndex < 0) throw new AppError("Item cart not found");
+    if (itemCartIndex < 0) throw new AppError("Item cart not found");
 
     const currentItemCart = cart.items[itemCartIndex];
     const newQuantity = currentItemCart.quantity - 1;
-    if(newQuantity === 0) {
+    if (newQuantity === 0) {
       cart.items.splice(itemCartIndex, 1);
     } else {
       const updateItem = new ItemCartModel({
@@ -114,26 +116,34 @@ class CartRepository {
     return cartReponse;
   }
 
-
-
   addShipping({ cart_id, cep }: IRequestUpdateShipping): CartModel {
-    let cart = this.get(cart_id);
-    cart.shipping = {
-      "cep": cep,
-      "expectedDeliveryDays": 5,
-      "value": Math.random() < 0.5 ? 0 : 9.90,
-    };
+    const cart = this.get(cart_id);
 
-    const cartReponse = this._updateCart(cart, cart_id);
+    const currentShippingValue = cart.shipping?.value || 0;
+
+    const newCart = new CartModel(
+      {
+        ...cart,
+        total: cart.total - currentShippingValue,
+        subtotal: cart.subtotal - currentShippingValue,
+        shipping: new ShippingModel({
+          cep,
+          expectedDeliveryDays: 5,
+          value: Math.random() < 0.5 ? 0 : 9.90
+        })
+      });
+
+    const cartReponse = this._updateCart(newCart, cart_id);
     return cartReponse;
   }
 
   _updateCart(cart: CartModel, uuid: String) {
     const totalProducts = cart.items.reduce((total, itemCart) => total + itemCart.total, 0);
     const totalPoints = cart.items.reduce((total, itemCart) => total + itemCart.totalPoints, 0);
+    const shippingValue = cart.shipping?.value || 0;
 
-    cart.total = totalProducts;
-    cart.subtotal = totalProducts;
+    cart.total = totalProducts + shippingValue;
+    cart.subtotal = totalProducts + shippingValue;
     cart.totalPoints = totalPoints;
 
     this._updateCartInList(cart, uuid);
