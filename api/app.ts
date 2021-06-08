@@ -9,9 +9,11 @@ import ErrorHandler from 'middlewares/ErrorsHandler';
 
 const app = express();
 
-app.use((req: Request, res: Response, nextFuc : NextFunction) => {
+app.use((req: Request, res: Response, nextFuc: NextFunction) => {
   console.log(req.method, ': ', req.url);
-  nextFuc();
+  setTimeout(() => {
+    nextFuc();
+  }, 1000);
 });
 
 app.use(cors());
