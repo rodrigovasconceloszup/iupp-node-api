@@ -7,6 +7,9 @@ services:
     command: "yarn test"
     environment:
       - APP_PORT=3333
+    networks:
+      frontend:
+          ipv4_address: 172.19.0.2
     volumes:
       - .:/app
 
@@ -18,9 +21,6 @@ services:
     <<: *default
     command: "yarn dev"
     container_name: iupp_node_api
-    networks:
-      frontend:
-          ipv4_address: 172.19.0.2
     ports:
       - 3333:3333
 
