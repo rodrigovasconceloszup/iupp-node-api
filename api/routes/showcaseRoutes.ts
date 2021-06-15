@@ -4,6 +4,6 @@ import * as ShowcaseController from '../controllers/showcase';
 
 const showcaseRoutes = express.Router();
 
-showcaseRoutes.get('/:userId', ShowcaseController.GET.getShowcaseByUserId);
+showcaseRoutes.get('/', ShowcaseController.GET.getShowcaseByUserId);
 
 export default showcaseRoutes;
