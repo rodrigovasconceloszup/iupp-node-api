@@ -5,7 +5,6 @@ interface CartItemModelDTO {
   quantity: number;
   product: ProductModel;
 }
-
 class ItemCartModel {
   id: String;
   quantity: number;
